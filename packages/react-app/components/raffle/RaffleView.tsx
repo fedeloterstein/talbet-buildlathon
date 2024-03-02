@@ -13,8 +13,7 @@ import CurrentEntries from "../CurrentEntries";
 import { CoinsIcon } from "../icons/CoinsIcon";
 import { RaffleSkeleton } from "./RaffleSkeleton";
 
-export const RaffleView = () => {
-  const address = useAddress();
+export const RaffleView = ({address}: any) => {
 
   const { contract } = useContract(LOTTERY_CONTRACT_ADDRESS);
   const { data: tokenAddress } = useContractRead(contract, "tokenAddress", []);

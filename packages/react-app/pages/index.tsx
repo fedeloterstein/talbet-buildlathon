@@ -31,7 +31,7 @@ export default function Home() {
       pb={10}
     >
       <Container maxW="container.lg">
-        {address ? <Connected /> : <Landing />}
+        {address ? <Connected address={address}/> : <Landing />}
       </Container>
     </Stack>
   );

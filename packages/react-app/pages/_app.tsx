@@ -7,8 +7,9 @@ import { WagmiConfig, configureChains, createConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
 import Layout from "../components/Layout";
 import "../styles/globals.css";
-import { ChakraProvider } from '@chakra-ui/react'
-
+import { ChakraProvider } from "@chakra-ui/react";
+import { ThirdwebProvider } from "@thirdweb-dev/react";
+import { CeloAlfajoresTestnet } from "@thirdweb-dev/chains";
 const projectId = process.env.NEXT_PUBLIC_WC_PROJECT_ID as string; // get one at https://cloud.walletconnect.com/app
 
 const { chains, publicClient } = configureChains(
@@ -31,17 +32,24 @@ const wagmiConfig = createConfig({
   publicClient: publicClient,
 });
 
+const activeChain = CeloAlfajoresTestnet;
+
 function App({ Component, pageProps }: AppProps) {
   return (
-    <ChakraProvider>
-      <WagmiConfig config={wagmiConfig}>
-        <RainbowKitProvider chains={chains} appInfo={appInfo} coolMode={true}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </RainbowKitProvider>
-      </WagmiConfig>
-    </ChakraProvider>
+    <ThirdwebProvider
+      clientId={process.env.NEXT_PUBLIC_TEMPLATE_CLIENT_ID}
+      activeChain={activeChain}
+    >
+      <ChakraProvider>
+        <WagmiConfig config={wagmiConfig}>
+          <RainbowKitProvider chains={chains} appInfo={appInfo} coolMode={true}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </RainbowKitProvider>
+        </WagmiConfig>
+      </ChakraProvider>
+    </ThirdwebProvider>
   );
 }
 

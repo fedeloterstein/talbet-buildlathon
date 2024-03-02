@@ -5,8 +5,7 @@ import { TOKEN_DROP } from "../../constants/addresses";
 import { WalletSkeleton } from "./WalletSkeleton";
 import { WalletIcon } from "../icons/WalletIcon";
 
-export const WalletView = () => {
-  const address = useAddress();
+export const WalletView = ({ address }: any) => {
   const { contract } = useContract(TOKEN_DROP, "token");
   const { data: tokenDropData, isLoading: isLoadingTokenDrop } =
     useTokenBalance(contract, address!);
@@ -44,7 +43,9 @@ export const WalletView = () => {
         </Text>
       </Stack>
 
-      <Text fontSize={'16px'} fontWeight={500}>{address}</Text>
+      <Text fontSize={"16px"} fontWeight={500}>
+        {address}
+      </Text>
     </Stack>
   );
 };
